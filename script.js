@@ -14,22 +14,14 @@ const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
-    e.preventDefault(); // prevent default jump
 
     const targetId = link.getAttribute('href');
     const targetElement = document.querySelector(targetId);
 
     if (!targetElement) return;
 
-    // Get element position and adjust for fixed navbar height
     const navHeight = document.querySelector('nav').offsetHeight;
     const elementPosition = targetElement.offsetTop - navHeight;
-
-    // Smooth scroll
-    window.scrollTo({
-      top: elementPosition,
-      behavior: 'smooth'
-    });
   });
 });
 
@@ -106,13 +98,22 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
       const currentSection = entry.target.id;
 
+
       navItems.forEach(link => {
+
         link.classList.remove("active");
 
+
         if (link.getAttribute("href") === "#" + currentSection) {
+
           link.classList.add("active");
+
         }
+
       });
+
+
+      history.replaceState(null, null, "#" + currentSection);
 
     }
 
@@ -120,13 +121,31 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 
 }, {
-  threshold: 0.2,
-  rootMargin: "-22% 0px -50% 0px"
+  threshold: 0.5
 });
 
 
 sections.forEach(section => {
 
   sectionObserver.observe(section);
+
+});
+
+const scrollIndicator = document.querySelector(".scroll-indicator");
+
+
+// Hide scroll indicator when user starts scrolling
+
+let hasScrolled = false;
+
+window.addEventListener("scroll", () => {
+
+  if (!hasScrolled && window.scrollY > 10) {
+
+    scrollIndicator.classList.add("hide");
+
+    hasScrolled = true;
+
+  }
 
 });
