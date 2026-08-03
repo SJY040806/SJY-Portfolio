@@ -1496,6 +1496,13 @@ footer {
 
 @media(max-width:768px) {
 
+  #hero {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
   nav {
     justify-content: flex-end;
     padding: 1.5rem 2rem;
