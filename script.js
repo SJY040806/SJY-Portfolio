@@ -59,30 +59,18 @@ reveals.forEach(element => {
 
 const hamburger = document.querySelector(".hamburger");
 const menu = document.querySelector("nav ul");
-const menuLinks = document.querySelectorAll("nav a");
 
 
-hamburger.addEventListener("click", () => {
+if (hamburger) {
 
-  hamburger.classList.toggle("active");
+  hamburger.addEventListener("click", () => {
 
-  menu.classList.toggle("active");
-
-});
-
-
-// Close menu after clicking a link
-
-menuLinks.forEach(link => {
-
-  link.addEventListener("click", () => {
-
-    menu.classList.remove("active");
-    hamburger.classList.remove("active");
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
 
   });
 
-});
+}
 
 // Active Navbar Highlight
 
@@ -147,5 +135,17 @@ window.addEventListener("scroll", () => {
     hasScrolled = true;
 
   }
+
+});
+
+navLinks.forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    hamburger.classList.remove("active");
+
+    menu.classList.remove("active");
+
+  });
 
 });
