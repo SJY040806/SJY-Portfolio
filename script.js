@@ -13,16 +13,27 @@ window.addEventListener('scroll', () => {
 const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
 navLinks.forEach(link => {
-  link.addEventListener('click', e => {
 
-    const targetId = link.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
+  link.addEventListener("click", e => {
 
-    if (!targetElement) return;
+    e.preventDefault();
 
-    const navHeight = document.querySelector('nav').offsetHeight;
-    const elementPosition = targetElement.offsetTop - navHeight;
+    const targetId = link.getAttribute("href");
+    const target = document.querySelector(targetId);
+
+    if (target) {
+
+      target.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+    hamburger.classList.remove("active");
+    menu.classList.remove("active");
+
   });
+
 });
 
 // Scroll Reveal Animation
@@ -100,16 +111,13 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
       });
 
-
-      history.replaceState(null, null, "#" + currentSection);
-
     }
 
   });
 
 
 }, {
-  threshold: 0.5
+  threshold: 0.25
 });
 
 
@@ -142,9 +150,13 @@ navLinks.forEach(link => {
 
   link.addEventListener("click", () => {
 
-    hamburger.classList.remove("active");
+    if (hamburger) {
+      hamburger.classList.remove("active");
+    }
 
-    menu.classList.remove("active");
+    if (menu) {
+      menu.classList.remove("active");
+    }
 
   });
 
